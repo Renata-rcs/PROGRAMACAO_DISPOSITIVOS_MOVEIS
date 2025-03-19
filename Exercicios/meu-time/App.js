@@ -10,7 +10,7 @@ import {
 
 export default function App() {
   function alerta() {
-    alert("Gol do Jogador/Time!");
+    alert("Gol do Corinthias");
   }
   return (
     <ScrollView>
