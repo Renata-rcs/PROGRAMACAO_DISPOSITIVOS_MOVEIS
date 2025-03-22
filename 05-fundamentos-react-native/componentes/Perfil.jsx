@@ -8,7 +8,7 @@ export default function Perfil(props) {
     console.log(props.idade)
 
   return (
-    <View>
+    <View style={styles.container}>
       <Text style={{ fontSize: 40 }}>Perfil</Text>
       <Text style={{ fontSize: 40 }}>Nome: {props.nome}</Text>
       <Text style={{ fontSize: 40 }}>Idade: {props.idade}</Text>
