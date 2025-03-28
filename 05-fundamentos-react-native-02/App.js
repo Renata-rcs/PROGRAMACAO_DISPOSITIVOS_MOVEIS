@@ -1,43 +1,46 @@
-import React from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, ScrollView} from 'react-native';
-import PrimeiroComponente from './Componentes/PrimeiroComponente';
-import JavascriptComponente from './Componentes/JavascriptComponente';
-import Perfil from './Componentes/Perfil';
-import ListaComponente from './Componentes/ListaComponente';
-import Pessoa from './Componentes/Pessoa';
+import React from "react";
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, Text, View, ScrollView } from "react-native";
+import PrimeiroComponente from "./Componentes/PrimeiroComponente";
+import JavascriptComponente from "./Componentes/JavascriptComponente";
+import Perfil from "./Componentes/Perfil";
+import ListaComponente from "./Componentes/ListaComponente";
+import Pessoa from "./Componentes/Pessoa";
+import Atleta from "./Componentes/Atleta";
 
 export default function App() {
-
   const listaJogadores = [
     {
       nome: "Neymar",
       idade: 33,
-      imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAv6eBtFTNeYjdsWRhY0629mBvShc3kc7XMw&s"
+      imagem:
+        "https://i.pinimg.com/236x/65/92/d2/6592d22f05d29398784337cd02a37e26.jpg",
     },
     {
-      nome: "Neymar",
-      idade: 33,
-      imagem: "https://www.infomoney.com.br/wp-content/uploads/2025/03/2025-03-17T164854Z_1_LYNXMPEL2G0Q0_RTROPTP_4_MUNDIAL-ARGENTINA-MESSI.jpg?fit=1280%2C929&quality=50&strip=al"
+      nome: "Cristiano Ronaldo",
+      idade: 40,
+      imagem:
+        "https://i.pinimg.com/474x/e2/07/cc/e207cc58c891798d5ff308b38ebc59cc.jpg",
     },
     {
-      nome: "Neymar",
-      idade: 33,
-      imagem: "https://www.infomoney.com.br/wp-content/uploads/2025/03/2025-03-17T164854Z_1_LYNXMPEL2G0Q0_RTROPTP_4_MUNDIAL-ARGENTINA-MESSI.jpg?fit=1280%2C929&quality=50&strip=all"
+      nome: "Lebron James",
+      idade: 40,
+      imagem:
+        "https://i.pinimg.com/236x/6a/ae/f7/6aaef74808fdfbe4b25c41699fba6d81.jpg",
     },
     {
-      nome: "Neymar",
-      idade: 33,
-      imagem: "https://www.infomoney.com.br/wp-content/uploads/2025/03/2025-03-17T164854Z_1_LYNXMPEL2G0Q0_RTROPTP_4_MUNDIAL-ARGENTINA-MESSI.jpg?fit=1280%2C929&quality=50&strip=all"
-    }
-  ]
- 
+      nome: "Falcão",
+      idade: 40,
+      imagem:
+        "https://i.pinimg.com/236x/2a/35/4f/2a354f4de93337261a885fee54e55118.jpg",
+    },
+  ];
   return (
     <ScrollView>
-    <View style={styles.container}>
-      <StatusBar style="auto" />
-      <ListaComponente />
-      {/* <PrimeiroComponente />
+      <View style={styles.container}>
+        <StatusBar style="auto" />
+        {/* <ListaComponente /> */}
+        {/* <PrimeiroComponente />
       <JavascriptComponente />
 
       <Perfil 
@@ -54,7 +57,7 @@ export default function App() {
       />
 
       <ListaComponente /> */}
-       {/* <Pessoa 
+        {/* <Pessoa 
         dados={{
           nome: "Neymar",
           idade: 33,
@@ -75,7 +78,7 @@ export default function App() {
           imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAv6eBtFTNeYjdsWRhY0629mBvShc3kc7XMw&s"
         }}
        /> */}
-    
+        {/*     
      {
       listaJogadores.map(
         (jogador) => {
@@ -86,8 +89,18 @@ export default function App() {
           )
         }
       )
-     }
-    </View>
+     } */}
+
+        {listaJogadores.map((jogador) => {
+          return (
+            <Atleta
+              nome={jogador.nome}
+              idade={jogador.idade}
+              imagem={jogador.imagem}
+            />
+          );
+        })}
+      </View>
     </ScrollView>
   );
 }
@@ -95,7 +108,6 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-   
+    backgroundColor: "#fff",
   },
 });
