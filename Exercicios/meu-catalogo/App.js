@@ -70,7 +70,7 @@ export default function App() {
                 return (
                   <Filmes
                   nome={item.nome}
-                  ano={item.idade}
+                  ano={item.ano}
                   diretor={item.diretor}
                   tipo={item.tipo}
                   capa={item.capa}
@@ -83,7 +83,7 @@ export default function App() {
                 return (
                   <Series
                     nome={item.nome}
-                    ano={item.idade}
+                    ano={item.ano}
                     diretor={item.diretor}
                     temporadas={item.temporadas}
                     capa={item.capa}
