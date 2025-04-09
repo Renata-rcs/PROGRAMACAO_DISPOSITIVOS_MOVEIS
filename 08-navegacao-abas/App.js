@@ -25,8 +25,8 @@ export default function App() {
               headerStyle: {
                 backgroundColor: 'pink'
               },
-              tabBarActiveTintColor: 'pink',
-              tabBarInactiveTintColor: 'blue',
+              tabBarActiveTintColor: 'blue',
+              tabBarInactiveTintColor: 'pink',
               tabBarIcon: ({ color, size }) => <Ionicons name='home' color={color} size={size} />
             }}
              />
@@ -40,8 +40,8 @@ export default function App() {
               headerStyle: {
                 backgroundColor: 'pink'
               },
-              tabBarActiveTintColor: 'pink',
-              tabBarInactiveTintColor: 'blue',
+              tabBarActiveTintColor: 'blue',
+              tabBarInactiveTintColor: 'pink',
               tabBarIcon: ({ color, size }) => <Ionicons name='person' color={color} size={size} 
               />
             }}
@@ -55,8 +55,8 @@ export default function App() {
               headerStyle: {
                 backgroundColor: 'pink'
               },
-              tabBarActiveTintColor: 'pink',
-              tabBarInactiveTintColor: 'blue',
+              tabBarActiveTintColor: 'blue',
+              tabBarInactiveTintColor: 'pink',
               tabBarIcon: ({ color, size }) => <Ionicons name='cog' color={color} size={size} />
             }}
             />
