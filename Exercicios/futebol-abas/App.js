@@ -28,7 +28,7 @@ export default function App() {
              },
              tabBarActiveTintColor: 'black',
              tabBarInactiveTintColor: 'red',
-             tabBarIcon: ({ color, size }) => <Ionicons name='star' color={color} size={size} />
+             tabBarIcon: ({ color, size }) => <Ionicons name='trophy' color={color} size={size} />
 
             }}
         />
@@ -58,7 +58,7 @@ export default function App() {
              },
              tabBarActiveTintColor: 'black',
              tabBarInactiveTintColor: 'red',
-             tabBarIcon: ({ color, size }) => <Ionicons name='checkmark-circle' color={color} size={size} />
+             tabBarIcon: ({ color, size }) => <Ionicons name='shield' color={color} size={size} />
 
             }}
         />
@@ -70,11 +70,3 @@ export default function App() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

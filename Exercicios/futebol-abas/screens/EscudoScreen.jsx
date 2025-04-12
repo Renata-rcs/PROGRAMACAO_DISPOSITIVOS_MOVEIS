@@ -14,8 +14,7 @@ export default function EscudoScreen() {
       <Text style={styles.texto} >{time.nome}</Text>
       <Image 
       source={{ uri: time.escudo }}  
-      width={300}
-      height={400}
+      style={{width: 300, height: 400}}
       />
     </View>
   );

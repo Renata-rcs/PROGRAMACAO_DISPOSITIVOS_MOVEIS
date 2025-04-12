@@ -35,7 +35,7 @@ export default function TitulosScreen() {
               {/* <Text>{item.anos.join(', ')}</Text> */}
 
               {item.anos.map((ano, index) => (
-                <Text style={{ textAlign: 'center'}} key={index}>🏆{ano}</Text>
+                <Text style={{ textAlign: 'center', padding: 5}} key={index}>🏆{ano}</Text>
               ))}
             </Card.Content>
           </Card>
