@@ -1,4 +1,4 @@
-import { FlatList, ScrollView, StyleSheet, View } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 import React from "react";
 import { Text, Card, Title } from "react-native-paper";
 
@@ -37,8 +37,9 @@ export default function JogadoresScreen() {
   ];
 
   return (
-    <ScrollView>
+    
       <View>
+        <Text style={{fontSize: 40, fontWeight:'bold', textAlign: 'center', padding: 20}}>Jogadores</Text>
         <FlatList
           data={jogadores}
           renderItem={({ item }) => (
@@ -55,7 +56,7 @@ export default function JogadoresScreen() {
           )}
         />
       </View>
-    </ScrollView>
+    
   );
 }
 
