@@ -2,7 +2,7 @@ import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View, FlatList } from 'react-native';
 import { PaperProvider, Text } from 'react-native-paper';
-import Estado from './Componentes/Estado';
+import Estado from './componentes/Estado';
 
 
 export default function App() {

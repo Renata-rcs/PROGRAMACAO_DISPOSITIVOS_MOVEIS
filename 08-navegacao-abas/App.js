@@ -50,7 +50,7 @@ export default function App() {
             name='Configuraçãoes' 
             component={SettingsScreen} 
             options={{
-              title: 'Início',
+              title: 'Configurações',
               headerTitleAlign: 'center',
               headerStyle: {
                 backgroundColor: 'pink'
