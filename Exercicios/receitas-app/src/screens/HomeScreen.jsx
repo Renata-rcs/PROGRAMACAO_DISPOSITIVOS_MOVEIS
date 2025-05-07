@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, FlatList } from 'react-native'
+import { StyleSheet, Text, View, FlatList, Image } from 'react-native'
 import { Button, Card } from 'react-native-paper'
 
 const receitas = [
@@ -77,30 +77,71 @@ const receitas = [
 ];
 
 
-export default function HomeScreen({ navigation, route }) {
+export default function HomeScreen({ navigation }) {
   return (
-    <View>
-       <FlatList 
+    <View style={styles.container}>
+      <Text style={styles.titulo}>Receitas</Text>
+      <FlatList
         data={receitas}
         renderItem={({ item }) => (
-            <Card  style={{ margin: 10 }}>
-                <Card.Content>
-                    <Text>Receitas: {item.nome}</Text>
-                </Card.Content>
-                <Card.Actions>
-                    <Button 
-                        mode='contained'
-                        icon='arrow-right'
-                        onPress={() => navigation.navigate('ReceitaScreen', { item }) }
-                    >
-                        Ver Detalhes
-                    </Button>
-                </Card.Actions>
-            </Card>
+          <Card style={styles.card}>
+            <Card.Content>
+              <Text style={styles.nomeReceita}>{item.nome}</Text>
+              <Image source={{ uri: item.imagem }} style={styles.imagemReceita} />
+            </Card.Content>
+            <Card.Actions style={styles.cardActions}>
+              <Button
+                mode="contained"
+                icon="arrow-right"
+                buttonColor='red'
+                textColor='yellow'
+                onPress={() => navigation.navigate('ReceitaScreen', { item })}
+              >
+                Ver Detalhes
+              </Button>
+            </Card.Actions>
+          </Card>
         )}
-     />
+        keyExtractor={(item) => item.id.toString()}
+      />
     </View>
-  )
+  );
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: 40,
+    paddingBottom: 20,
+    backgroundColor: '#f5f5f5',
+  },
+  titulo: {
+    fontWeight: 'bold',
+    fontSize: 36,
+    textAlign: 'center',
+    marginBottom: 10,
+  },
+  card: {
+    margin: 16,
+    borderRadius: 10,
+    elevation: 4,
+    backgroundColor: '#ffffff',
+  },
+  nomeReceita: {
+    paddingBottom: 16,
+    fontWeight: 'bold',
+    fontSize: 22,
+    textAlign: 'center',
+  },
+  imagemReceita: {
+    width: '100%',
+    height: 250,
+    borderRadius: 8,
+    resizeMode: 'cover',
+    alignSelf: 'center',
+  },
+  cardActions: {
+    justifyContent: 'center',
+    paddingBottom: 12,
+  },
+});
