@@ -2,9 +2,12 @@ import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
 
-import NomeNumero from './components/NomeNumero';
-import Controle from './components/Controle';
-import NumeroAleatorio from './components/NumeroAleatorio';
+// import NomeNumero from './components/NomeNumero';
+// import Controle from './components/Controle';
+// import NumeroAleatorio from './components/NumeroAleatorio';
+
+import Pessoa from './components/Pessoa';
+import GeradorNumeroAleatorio from './components/GeradorNumeroAleatorio';
 
 export default function App() {
   return (
@@ -12,11 +15,18 @@ export default function App() {
       <StatusBar style="auto" />
 
       
-      <NomeNumero />
+      {/* <NomeNumero />
 
       <Controle />
 
-      <NumeroAleatorio />
+      <NumeroAleatorio /> */}
+
+      <Pessoa />
+      <GeradorNumeroAleatorio></GeradorNumeroAleatorio> 
+
+
+
+
 
 
     </View>
