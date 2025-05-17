@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { View, StyleSheet, FlatList } from "react-native";
+import { View, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
 import { Card, Text, Button } from "react-native-paper";
 
 export default function MegaSenaScreen() {
   const [numerosSorteados, setNumerosSorteados] = useState([]);
   const [historico, setHistorico] = useState([]);
 
-  const gerarNumerosMegaSena = () => {
+  function gerarNumerosMegaSena() {
     const numeros = [];
     while (numeros.length < 6) {
       const numero = Math.floor(Math.random() * 60) + 1;
@@ -16,83 +16,113 @@ export default function MegaSenaScreen() {
     }
     numeros.sort((a, b) => a - b);
     setNumerosSorteados(numeros);
-    setHistorico([numeros, ...historico]);
-  };
+    setHistorico([...historico, numeros]);
+  }
 
-  const resetar = () => {
+  function resetar() {
     setNumerosSorteados([]);
     setHistorico([]);
-  };
-
-  const renderNumero = (numero) => {
-    const nSorteado = numerosSorteados.includes(numero);
-    return (
-      <View
-        key={numero}
-        style={[styles.numero, nSorteado && styles.numeroSorteado]}
-      >
-        <Text style={styles.textoNumero}>{numero}</Text>
-      </View>
-    );
-  };
+  }
 
   return (
-    <View style={styles.container}>
-      <Card>
-        <Card.Content>
-          <Text variant="headlineMedium" style={{ textAlign: 'center'}}>Mega Sena</Text>
-          <View style={styles.grid}>
-            {Array.from({ length: 60 }, (_, i) => renderNumero(i + 1))}
-          </View>
-        </Card.Content>
-        <Card.Actions>
-          <Button onPress={resetar}>Resetar</Button>
-          <Button onPress={gerarNumerosMegaSena}>Gerar</Button>
-        </Card.Actions>
-      </Card>
+    <ScrollView style={styles.container}>
+        <Card style={styles.card}>
+          <Card.Content>
+            <Text
+              variant="displaySmall"
+              style={{ textAlign: "center", margin: 20 }}
+            >
+              Mega Sena
+            </Text>
 
-      <Card style={{ marginTop: 16 }}>
-        <Card.Content>
-          <Text variant="headlineMedium" style={{ textAlign: 'center'}}>Histórico</Text>
-          <FlatList
-            data={historico}
-            keyExtractor={(index) => index.toString()}
-            renderItem={({ item, index }) => (
-              <Text variant="labelLarge">
-                {`Jogo ${index + 1}: ${item.join(", ")}`}
-              </Text>
+            {/* Painel de Números */}
+            <View style={styles.grid}>
+              {Array.from({ length: 60 }, (_, i) => i + 1).map((numero) => (
+                <TouchableOpacity
+                  key={numero}
+                  style={[
+                    styles.numero,
+                    numerosSorteados.includes(numero) && styles.numeroSorteado,
+                  ]}
+                >
+                  <Text style={styles.numeroTexto}>{numero}</Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+
+            {/* Números Sorteados Abaixo */}
+            {numerosSorteados.length > 0 && (
+              <View style={styles.resultado}>
+                <Text variant="titleLarge">Números Sorteados:</Text>
+                <Text variant="headlineMedium">
+                  {numerosSorteados.join(" - ")}
+                </Text>
+              </View>
             )}
-          />
-        </Card.Content>
-      </Card>
-    </View>
+          </Card.Content>
+
+          <Card.Actions style={styles.botoes}>
+            <Button onPress={resetar}>Resetar</Button>
+            <Button onPress={gerarNumerosMegaSena}>Gerar</Button>
+          </Card.Actions>
+        </Card>
+
+        {/* Histórico */}
+        <Card style={styles.card}>
+          <Card.Content>
+            <Text
+              variant="displaySmall"
+              style={{ textAlign: "center", margin: 20 }}
+            >
+              Histórico
+            </Text>
+            {historico.map((item, index) => (
+              <Text key={index} variant="labelLarge">
+                {`Jogo ${index + 1}: ${item.join(" - ")}`}
+              </Text>
+            ))}
+          </Card.Content>
+        </Card>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     padding: 16,
-    flex: 1
+  },
+  card: {
+    marginBottom: 16,
+    paddingBottom: 20,
   },
   grid: {
     flexDirection: "row",
     flexWrap: "wrap",
-    marginTop: 16,
+    justifyContent: "center",
+    margin: 16,
   },
   numero: {
-    width: 30,
-    height: 30,
-    borderRadius: 20,
-    backgroundColor: "#ddd",
-    alignItems: "center",
-    justifyContent: "center",
+    width: 40,
+    height: 40,
     margin: 4,
+    borderRadius: 20,
+    backgroundColor: "#E0E0E0",
+    justifyContent: "center",
+    alignItems: "center",
   },
   numeroSorteado: {
-    backgroundColor: "#4caf50",
+    backgroundColor: "#4CAF50",
   },
-  textoNumero: {
-    color: "#fff",
+  numeroTexto: {
+    color: "#000",
     fontWeight: "bold",
+  },
+  resultado: {
+    margin: 24,
+    alignItems: "center",
+  },
+  botoes: {
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
