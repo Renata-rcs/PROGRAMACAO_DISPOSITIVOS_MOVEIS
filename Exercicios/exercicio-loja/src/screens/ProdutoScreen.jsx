@@ -1,33 +1,25 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { View, ScrollView, StyleSheet, Image } from 'react-native';
-import { Text, Card, ActivityIndicator, MD2Colors, Button } from 'react-native-paper';
+import { Text, Card, Button } from 'react-native-paper';
 
 export default function ProdutoScreen({ route, navigation }) {
   const { id } = route.params;
   const [produto, setProduto] = useState(null);
-  const [loading, setLoading] = useState(true);
+  
 
   useEffect(() => {
     axios.get(`https://dummyjson.com/products/${id}`)
       .then(res => {
         setProduto(res.data);
-        setLoading(false);
+        
       })
       .catch(err => {
         console.error('Erro ao buscar produto:', err);
-        setLoading(false);
+        
       });
   }, [id]);
 
-  if (loading) {
-    return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator animating={true} color={MD2Colors.blue800} size="large" />
-        <Text variant="titleLarge" style={styles.loadingText}>Carregando detalhes...</Text>
-      </View>
-    );
-  }
 
   if (!produto) {
     return (
@@ -88,12 +80,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#FCE4EC',
-  },
-  loadingText: {
-    marginTop: 16,
-    color: '#AD1457', // rosa escuro
-    fontWeight: '600',
-    fontSize: 16,
   },
   title: {
     marginTop: 16,

@@ -1,33 +1,23 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, FlatList } from 'react-native';
-import { Avatar, Card, Text, Divider, ActivityIndicator, MD2Colors } from 'react-native-paper';
+import { Avatar, Card, Text, Divider} from 'react-native-paper';
 
 export default function ListaProdutosScreen({ navigation, route }) {
   const { category } = route.params;
   const [produtos, setProdutos] = useState([]);
-  const [loading, setLoading] = useState(true);
+ 
 
   useEffect(() => {
     axios.get(`https://dummyjson.com/products/category/${category}`)
       .then(resposta => {
         setProdutos(resposta.data.products);
-        setLoading(false);
       })
       .catch(erro => {
         console.error('Erro ao buscar produtos:', erro);
-        setLoading(false);
       });
   }, [category]);
 
-  if (loading) {
-    return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator animating={true} color={MD2Colors.blue800} size="large" />
-        <Text variant="titleLarge" style={styles.loadingText}>Carregando produtos...</Text>
-      </View>
-    );
-  }
 
   return (
     <View style={styles.container}>
@@ -70,18 +60,6 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     backgroundColor: '#FCE4EC', // rosa claro suave
-  },
-  loadingContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#FCE4EC',
-  },
-  loadingText: {
-    marginTop: 16,
-    fontSize: 16,
-    color: '#AD1457', // rosa escuro
-    fontWeight: '600',
   },
   categoryTitle: {
     textAlign: 'center',
