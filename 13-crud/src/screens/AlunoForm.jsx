@@ -1,17 +1,20 @@
+import { useState } from 'react'
 import { StyleSheet, View } from 'react-native'
-import React, { useState } from 'react'
-import { Button, Text, TextInput } from 'react-native-paper';
 import { TextInputMask } from 'react-native-masked-text'
+import { Button, Text, TextInput } from 'react-native-paper'
+import AlunoService from '../services/Aluno.Service'
 
-export default function AlunoForm() {
+export default function AlunoForm({ navigation, route }) {
 
-  const [nome, setNome] = useState("")
-  const [cpf, setCpf] = useState("")
-  const [email, setEmail] = useState("")
-  const [telefone, setTelefone] = useState("")
-  const [dataNascimento, setDataNascimento] = useState("")
+  const alunoAntigo = route.params || {}
 
-  function salvar(){
+  const [nome, setNome] = useState(alunoAntigo.nome || "")
+  const [cpf, setCpf] = useState(alunoAntigo.cpf || "")
+  const [email, setEmail] = useState( alunoAntigo.email || "")
+  const [telefone, setTelefone] = useState(alunoAntigo.telefone || "")
+  const [dataNascimento, setDataNascimento] = useState(alunoAntigo.dataNascimento || "")
+
+  async function salvar() {
     let aluno = {
       nome,
       cpf,
@@ -20,83 +23,107 @@ export default function AlunoForm() {
       dataNascimento
     }
 
-    if(!aluno.nome || !aluno.cpf || !aluno.email || !aluno.telefone || !aluno.dataNascimento){
-      alert("Prencha todos os campos!")
-    }
-    else {
-      // grave o aluno
+    if (!aluno.nome || !aluno.cpf || !aluno.email || !aluno.dataNascimento || !aluno.telefone) {
+      alert('Preencha todos os campos!')
+      return
     }
 
-    //alert(JSON.stringify(aluno))
+    if (alunoAntigo.id){
+      // Alterando um aluno
+      aluno.id = alunoAntigo.id
+      await AlunoService.atualizar(aluno)
+      alert("Aluno alterado com sucesso!!!")
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'AlunoLista' }]
+     })
+    }
+    else{
+      // Aluno novo
+      await AlunoService.salvar(aluno)
+      alert("Aluno cadastrado com sucesso!!!")
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'AlunoLista' }]
+     })
+    }
+
+
+
   }
-  
+
 
   return (
     <View style={styles.container}>
-      <Text variant='titleLarge'>Informe os Dados do Aluno:</Text>
+      <Text variant='titleLarge'>Informe os dados do Aluno:</Text>
+      <Text variant='titleLarge'>ID Aluno: {alunoAntigo.id || 'NOVO'}</Text>
 
-      <TextInput 
+      <TextInput
         style={styles.input}
         mode='outlined'
-        label='Nome: '
+        label="Nome"
         placeholder='Informe o nome'
         value={nome}
         onChangeText={setNome}
       />
-      <TextInput 
+
+      <TextInput
         style={styles.input}
         mode='outlined'
-        label='CPF: '
+        label="CPF"
         placeholder='Informe o CPF'
         value={cpf}
         onChangeText={setCpf}
         keyboardType='decimal-pad'
         render={(props) => (
-          <TextInputMask 
+          <TextInputMask
             {...props}
             type={'cpf'}
           />
         )}
       />
-      <TextInput 
+
+      <TextInput
         style={styles.input}
         mode='outlined'
-        label='Email: '
-        placeholder='Informe o email'
+        label="E-mail"
+        placeholder='Informe o E-mail'
         value={email}
         onChangeText={setEmail}
         keyboardType='email-address'
       />
-      <TextInput 
+
+      <TextInput
         style={styles.input}
         mode='outlined'
-        label='Telefone: '
-        placeholder='Informe o telefone'
+        label="Telefone"
+        placeholder='Informe o Telefone'
         value={telefone}
         onChangeText={setTelefone}
         keyboardType='numeric'
         render={(props) => (
-          <TextInputMask 
+          <TextInputMask
             {...props}
             type={'cel-phone'}
             options={{
               maskType: 'BRL',
               withDDD: true,
-              dddMask:'(99)'
+              dddMask: '(99)'
             }}
           />
         )}
       />
-      <TextInput 
+
+      <TextInput
         style={styles.input}
         mode='outlined'
-        label='Data de Nascimento: '
-        placeholder='Informe a data de nascimento'
+        label="Data de Nascimento"
+        placeholder='Informe a Data'
         value={dataNascimento}
         onChangeText={setDataNascimento}
         keyboardType='numeric'
         render={(props) => (
-          <TextInputMask 
+          <TextInputMask
             {...props}
             type={'datetime'}
             options={{
@@ -106,26 +133,27 @@ export default function AlunoForm() {
         )}
       />
 
-      <Button style={styles.input}
+      <Button
+        style={styles.input}
         mode='contained'
         onPress={salvar}
       >
         Salvar
       </Button>
 
+
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-  container:{
+  container: {
     flex: 1,
     alignItems: 'center',
-    marginTop: 10,
-  },
-  input:{
-    width: '90%',
     marginTop: 10
   },
-
+  input: {
+    width: '90%',
+    marginTop: 10
+  }
 })
